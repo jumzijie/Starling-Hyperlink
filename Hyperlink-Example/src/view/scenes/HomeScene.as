@@ -21,9 +21,9 @@ package view.scenes
       
       addBackground();
       
-      var testStr:String = "<a href=\"www.google.com\">Hello</a> <a href=\"www.facebook.com\">World</a>";
-      testStr += " Hello World <a href=\"github.com\">Hello</a> World";
-      testStr += " <a href=\"github.com\">Hello World</a>";
+      var testStr:String = "<a href=\"https://www.google.com\">Hello</a> <a href=\"github.com\">World</a>";
+      testStr += " Hello World <a href=\"mailto:test@gmail.com\">Hello</a> World";
+      testStr += " <a href=\"test2@gmail.com\">Hello World</a>";
       _txtTest = new TextField(Main.WIDTH - PADDING * 2, 100, testStr, Fonts.ARIAL, 18, 0x0);
       _txtTest.autoScale = true;
       _txtTest.border = true;
@@ -57,10 +57,6 @@ package view.scenes
     
     private function onOpenLink():void
     {
-      if (_link.indexOf("http://") != 0)
-      {
-        _link = "http://" + _link;
-      }
       navigateToURL(new URLRequest(_link));
     }
     

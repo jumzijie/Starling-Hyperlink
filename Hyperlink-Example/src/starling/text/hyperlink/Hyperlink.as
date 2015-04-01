@@ -3,6 +3,7 @@ package starling.text.hyperlink
   /** @author Jum */
   public class Hyperlink
   {
+    private static const EMAIL_EXPRESSION:RegExp = /^[\w.-]+@\w[\w.-]+\.[\w.-]*[a-z][a-z]$/i;
     private static const HREF:String = "href=";
     
     private var _startIndex:int;
@@ -17,6 +18,18 @@ package starling.text.hyperlink
       var endHrefIndex:int = hyperlink_.indexOf(hyperlink_.charAt(hrefIndex), hrefIndex + 1);
       _link = hyperlink_.substring(hrefIndex + 1, endHrefIndex);
       
+      if ((_link.indexOf("http") != 0) && (_link.indexOf("mailto:") != 0))
+      {
+        if (EMAIL_EXPRESSION.test(_link))
+        {
+          _link = "mailto:" + _link;
+        }
+        else
+        {
+          _link = "http://" + _link;
+        }
+      }
+      
       _text = HyperlinkUtils.removeHyperlink(hyperlink_);
       
       _startIndex = startIndex_;
@@ -29,9 +42,5 @@ package starling.text.hyperlink
     public function get link():String { return _link; }
     public function get text():String { return _text; }
     
-    public function toString():String
-    {
-      return "Hyperlink(text: " + _text + ", start: " + _startIndex + ", end: " + _endIndex + ")";
-    }
   }
 }
